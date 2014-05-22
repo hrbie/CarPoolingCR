@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  origen: MyString
+  latitud_origen: 1.5
+  longitud_origen: 1.5
+  destino: MyString
+  latitud_destino: 1.5
+  longitud_destino: 1.5
+  costo: 1
+  fecha: 2014-05-22
+  hora: 2014-05-22 09:45:01
+  espacio: 1
+  estado: MyString
+  references: MyString
+  usuario: MyString
+
+two:
+  origen: MyString
+  latitud_origen: 1.5
+  longitud_origen: 1.5
+  destino: MyString
+  latitud_destino: 1.5
+  longitud_destino: 1.5
+  costo: 1
+  fecha: 2014-05-22
+  hora: 2014-05-22 09:45:01
+  espacio: 1
+  estado: MyString
+  references: MyString
+  usuario: MyString

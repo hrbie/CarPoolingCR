@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 20140522154501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,5 +27,24 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "password_hash"
     t.string "password_salt"
   end
+
+  create_table "viajes", force: true do |t|
+    t.string   "origen"
+    t.float    "latitud_origen"
+    t.float    "longitud_origen"
+    t.string   "destino"
+    t.float    "latitud_destino"
+    t.float    "longitud_destino"
+    t.integer  "costo"
+    t.date     "fecha"
+    t.time     "hora"
+    t.integer  "espacio"
+    t.string   "estado"
+    t.integer  "usuario_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "viajes", ["usuario_id"], name: "index_viajes_on_usuario_id", using: :btree
 
 end

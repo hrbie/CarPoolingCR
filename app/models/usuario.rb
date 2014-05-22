@@ -1,5 +1,5 @@
 class Usuario < ActiveRecord::Base
-  #has_many :viajes
+  has_many :viajes
   attr_accessor :password
 
   #Antes de guardar ejecutar la funcion encrypt_password

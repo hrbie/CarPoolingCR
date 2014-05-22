@@ -10,18 +10,16 @@ Rails.application.routes.draw do
 
   #get 'root' => 'home#pagina_principal'
   resources :usuarios do
-  #  resources :viajes do
+    resources :viajes do
   #    resources :solicituds
-  #    collection do
-  #      get :index_all
-  #    end
-  #    collection do
-  #      get :viaje
-  #    end
+      collection do
+        get :index_all
+      end
+      collection do
+        get :viaje
+      end
     end
-
-
-  #end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

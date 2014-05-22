@@ -1,0 +1,59 @@
+<td><%= link_to 'Inicio',  usuario_path(@usuario) %></td>
+<h2> Nuevo Viaje</n>:</h2>
+<%= form_for([@usuario, @usuario.viajes.build]) do |f| %>
+    <p>
+      <%= f.label 'Origen' %><br>
+      <%= f.text_field :origen %>
+    </p>
+
+    <p>
+      <%= f.label 'Latitud  de Origen' %><br>
+      <%= f.text_field :latitud_origen %>
+    </p>
+
+    <p>
+      <%= f.label 'Longitud de Origen' %><br>
+          <%= f.text_field :longitud_origen %>
+    </p>
+
+    <p>
+      <%= f.label 'Destino' %><br>
+      <%= f.text_field :destino %>
+    </p>
+    <p>
+      <%= f.label 'Latitud de Destino' %><br>
+      <%= f.text_field :latitud_destino %>
+    </p>
+
+    <p>
+      <%= f.label 'Longitud de Destino' %><br>
+      <%= f.text_field :longitud_destino %>
+    </p>
+
+    <p>
+      <%= f.label 'Fecha' %><br>
+      <%= f.text_field :fecha %>
+    </p>
+
+    <p>
+      <%= f.label 'Hora' %><br>
+      <%= f.text_field :hora %>
+    </p>
+    <p>
+      <%= f.label 'Costo' %><br>
+      <%= f.text_field :costo %>
+    </p>
+
+    <p>
+      <%= f.label 'Espacio' %><br>
+      <%= f.text_field :espacio %>
+    </p>
+
+    <p>
+      <%= f.label 'Estado' %><br>
+      <%= f.text_field :estado %>
+    </p>
+    <p>
+      <%= f.submit 'Crear Viaje'%>
+    </p>
+<% end %>
