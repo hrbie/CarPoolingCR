@@ -1,7 +1,43 @@
 <%= link_to 'Nuevo Viaje', new_usuario_viaje_path(@usuario) %>
 <%= link_to 'Mis Viajes', usuario_viajes_path(@usuario) %>
+<%= link_to 'Buscar Viajes', index_all_usuario_viajes_path(@usuario) %>
 <p>
   <strong>Title:</strong>
+  <style type="text/css">
+      body {
+          padding-left: 11em;
+          font-family: Georgia, "Times New Roman",
+          Times, serif;
+          color: purple;
+          background-color: #ffffff }
+      ul.navbar li {
+          background: white;
+          margin: 0.5em 0;
+          padding: 0.3em;
+          border-right: 1em solid black }
+      ul.navbar a {
+          text-decoration: none
+          background: white;
+          margin: 0.5em 0;
+          padding: 0.3em}
+      a {
+          text-decoration: none;
+          background: greenyellow;
+          margin: 0.5em 0;
+          padding: 0.3em
+      }
+      a:link {
+          color: blue }
+      a:visited {
+          color: purple }
+      a:hover{
+          color: orange;
+          font-style: italic;
+      }
+      p {
+          font-family: Helvetica, Geneva, Arial,
+          SunSans-Regular, sans-serif }
+  </style>
   <%= @usuario.nombre %>
 </p>
 

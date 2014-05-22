@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   #get 'root' => 'home#pagina_principal'
   resources :usuarios do
     resources :viajes do
-  #    resources :solicituds
+      resources :solicituds
       collection do
         get :index_all
       end

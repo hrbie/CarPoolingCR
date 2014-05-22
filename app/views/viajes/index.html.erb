@@ -15,7 +15,7 @@
         <td><%= viaje.destino %></td>
         <td><%= link_to 'Mostrar', usuario_viaje_path(@usuario,viaje.id) %></td>
         <td><%= link_to 'Editar',  edit_usuario_viaje_path(@usuario,viaje.id) %></td>
-
+        <td><%= link_to 'Ver Solicitudes',  usuario_viaje_solicituds_path(@usuario,viaje.id) %></td>
 
       </tr>
   <% end %>

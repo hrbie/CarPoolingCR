@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_usuario: MyString
+  comentario: MyString
+  estado: MyString
+  references: MyString
+  viaje: MyString
+
+two:
+  id_usuario: MyString
+  comentario: MyString
+  estado: MyString
+  references: MyString
+  viaje: MyString

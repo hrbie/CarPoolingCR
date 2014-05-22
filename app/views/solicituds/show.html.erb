@@ -1,0 +1,34 @@
+<h1>Una Solicitud</h1>
+<p>
+  <strong>Nombre:</strong>
+  <%= @usuario.nombre %>
+</p>
+
+<p>
+  <strong>Primer Apellido:</strong>
+  <%= @usuario.primer_apellido %>
+
+</p>
+
+<p>
+  <strong>Segundo Apellido:</strong>
+  <%= @usuario.segundo_apellido %>
+</p>
+
+<p>
+  <strong>Comentario:</strong>
+  <%= @solicitud.comentario %>
+</p>
+
+
+<p>
+  <strong>Estado:</strong>
+  <%= @solicitud.estado %>
+</p>
+
+<%= form_for([@usuario,@viaje,@viaje.solicituds.build]) do |f| %>
+<p>
+  <%= link_to 'Aceptar Solicitud' , edit_usuario_viaje_solicitud_path(@usuario,@viaje,@solicitud)%>
+</p>
+<% end %>
+
