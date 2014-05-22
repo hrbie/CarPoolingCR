@@ -11,9 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 1) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "usuarios", force: true do |t|
+    t.string "nombre"
+    t.string "primer_apellido"
+    t.string "segundo_apellido"
+    t.string "direccion"
+    t.string "oficio"
+    t.string "email"
+    t.string "telefono"
+    t.string "password_hash"
+    t.string "password_salt"
+  end
 
 end

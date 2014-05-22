@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Carpoolingcr2</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<p>
+  <% if current_user %>
+      Uusario: <%= current_user.nombre+" " + current_user.primer_apellido%>.
+      <%= link_to "Salir", signed_out_path %>
+  <% else %>
+      <%= link_to "Registrarse", nuevo_usuario_path %>
+      <%= link_to "Iniciar Sesion", sign_in_path %>
+  <% end %>
+</p>
 
 <%= yield %>
 
-</body>
 </html>
