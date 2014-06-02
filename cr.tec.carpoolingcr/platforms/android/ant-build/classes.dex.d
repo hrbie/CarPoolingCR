@@ -6,4 +6,8 @@ C:\Users\Herberth\Documents\GitHub\CarPoolingCR\cr.tec.carpoolingcr\platforms\an
 C:\Users\Herberth\Documents\GitHub\CarPoolingCR\cr.tec.carpoolingcr\platforms\android\ant-build\classes\cr\tec\carpoolingcr\R$string.class \
 C:\Users\Herberth\Documents\GitHub\CarPoolingCR\cr.tec.carpoolingcr\platforms\android\ant-build\classes\cr\tec\carpoolingcr\R$xml.class \
 C:\Users\Herberth\Documents\GitHub\CarPoolingCR\cr.tec.carpoolingcr\platforms\android\ant-build\classes\cr\tec\carpoolingcr\R.class \
+C:\Users\Herberth\Documents\GitHub\CarPoolingCR\cr.tec.carpoolingcr\platforms\android\ant-build\classes\org\apache\cordova\devicemotion\AccelListener$1.class \
+C:\Users\Herberth\Documents\GitHub\CarPoolingCR\cr.tec.carpoolingcr\platforms\android\ant-build\classes\org\apache\cordova\devicemotion\AccelListener.class \
+C:\Users\Herberth\Documents\GitHub\CarPoolingCR\cr.tec.carpoolingcr\platforms\android\ant-build\classes\org\apache\cordova\deviceorientation\CompassListener$1.class \
+C:\Users\Herberth\Documents\GitHub\CarPoolingCR\cr.tec.carpoolingcr\platforms\android\ant-build\classes\org\apache\cordova\deviceorientation\CompassListener.class \
 C:\Users\Herberth\Documents\GitHub\CarPoolingCR\cr.tec.carpoolingcr\platforms\android\ant-build\dexedLibs\classes-d491949db9f27505a947faa7e7ebd3f2.jar \
