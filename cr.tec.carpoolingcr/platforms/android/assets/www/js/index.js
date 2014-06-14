@@ -150,24 +150,6 @@ var app = {
 			//ubicar a la persona en el mapa
 			app.posicionActual();
 		});
-		//sacar los Places cercanos al centro del mapa y ponerlos en el listview
-		
-		//buscar los Places cercanos a la persona y ponerlos en el Listview
-		<!--listview = "<ul data-role="listview" data-inset="true">";
-		 	<!--<li><a href="#" onclick="">
-				<!--<h2>Stephen Weber</h2>
-				<!--<p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
-				<!--<p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-				<!--<p class="ui-li-aside"><strong>6:24</strong>PM</p>
-			<!--</a></li>
-			
-			<!--<li><a href="#">
-				<!--<h2>jQuery Team</h2>
-				<!--<p><strong>Boston Conference Planning</strong></p>
-				<!--<p>In preparation for the upcoming conference in Boston, we need to start gathering a list of sponsors and speakers.</p>
-				<!--<p class="ui-li-aside"><strong>9:18</strong>AM</p>
-			<!--</a></li>
-		<!--</ul>-->
 	},
 	posicionActual: function(){
 		navigator.geolocation.getCurrentPosition(onSuccess, onError,{ enableHighAccuracy: true });
@@ -197,7 +179,31 @@ var app = {
 		        title: 'Aquí estoy yo!'
   			});
 		 	google.maps.event.trigger(map,'resize');
+			
+			var request = {
+    			location: myLatlng,
+			    radius: '500'
+			};
+			
+			service = new google.maps.places.PlacesService(map);
+			service.search(request, callback);
+			
+			function callback(results, status) {
+ 				if (status == google.maps.places.PlacesServiceStatus.OK) {
+					alert('places encontrados');
+					
+					lugares += '<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">';
+				    for (var i = 0; i < results.length; i++) {
+						//cargar los places en el listview
+				      	lugares += '<li><a href="#" onclick = "" class="ui-btn ui-btn-icon-right ui-icon-carat-r">';
+						lugares += 'TEXTO DEL LIST';
+						lugares += '<p class="ui-li-aside"> --Texto de la esquina-- </p></a></li>';
+    				}
+  				}			
+			}			
 		}
+		
+		
 	},
 	buscarOrigen:  function(){
 		//buscar Places que coincidan con la búsqueda y listarlos en un listview
