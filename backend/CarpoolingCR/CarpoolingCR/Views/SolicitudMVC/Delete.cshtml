@@ -1,0 +1,54 @@
+﻿@model CarpoolingCR.Models.Solicitud
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Solicitud</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_SOLICITUD)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_SOLICITUD)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Viaje.ORIGEN)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Viaje.ORIGEN)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Usuario.NOMBRE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Usuario.NOMBRE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.COMENTARIO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.COMENTARIO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ESTADO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ESTADO)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

@@ -1,0 +1,50 @@
+﻿@model CarpoolingCR.Models.Usuario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Usuario</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NOMBRE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NOMBRE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FECHA_NACIMIENTO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FECHA_NACIMIENTO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DIRECCION)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DIRECCION)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EMAIL)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EMAIL)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PASSWORD)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PASSWORD)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

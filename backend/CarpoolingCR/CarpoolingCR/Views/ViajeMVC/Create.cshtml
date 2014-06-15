@@ -1,0 +1,132 @@
+﻿@model CarpoolingCR.Models.Viaje
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Viaje</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ID_VIAJE)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ID_VIAJE)
+            @Html.ValidationMessageFor(model => model.ID_VIAJE)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ID_USUARIO, "Usuario")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ID_USUARIO", String.Empty)
+            @Html.ValidationMessageFor(model => model.ID_USUARIO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ORIGEN)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ORIGEN)
+            @Html.ValidationMessageFor(model => model.ORIGEN)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LATITUD_ORIGEN)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LATITUD_ORIGEN)
+            @Html.ValidationMessageFor(model => model.LATITUD_ORIGEN)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LONGITUD_ORIGEN)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LONGITUD_ORIGEN)
+            @Html.ValidationMessageFor(model => model.LONGITUD_ORIGEN)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DESTINO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DESTINO)
+            @Html.ValidationMessageFor(model => model.DESTINO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LATITUD_DESTINO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LATITUD_DESTINO)
+            @Html.ValidationMessageFor(model => model.LATITUD_DESTINO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LONGITUD_DESTINO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LONGITUD_DESTINO)
+            @Html.ValidationMessageFor(model => model.LONGITUD_DESTINO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.COSTO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.COSTO)
+            @Html.ValidationMessageFor(model => model.COSTO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FECHA)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FECHA)
+            @Html.ValidationMessageFor(model => model.FECHA)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HORA)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HORA)
+            @Html.ValidationMessageFor(model => model.HORA)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ESPACIOS)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ESPACIOS)
+            @Html.ValidationMessageFor(model => model.ESPACIOS)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ESTADO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ESTADO)
+            @Html.ValidationMessageFor(model => model.ESTADO)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

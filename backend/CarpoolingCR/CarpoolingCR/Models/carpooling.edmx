@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="carpoolingcrModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="carpoolingcrModelStoreContainer">
+          <EntitySet Name="Mensaje" EntityType="carpoolingcrModel.Store.Mensaje" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Solicitud" EntityType="carpoolingcrModel.Store.Solicitud" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Usuario" EntityType="carpoolingcrModel.Store.Usuario" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Viaje" EntityType="carpoolingcrModel.Store.Viaje" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="Mensaje_FK1" Association="carpoolingcrModel.Store.Mensaje_FK1">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="Solicitud_FK1" Association="carpoolingcrModel.Store.Solicitud_FK1">
+            <End Role="Viaje" EntitySet="Viaje" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="Solicitud_FK2" Association="carpoolingcrModel.Store.Solicitud_FK2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="Viaje_FK1" Association="carpoolingcrModel.Store.Viaje_FK1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Viaje" EntitySet="Viaje" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Mensaje">
+          <Key>
+            <PropertyRef Name="ID_MENSAJE" />
+          </Key>
+          <Property Name="ID_MENSAJE" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_SOLICITUD" Type="int" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="int" />
+          <Property Name="MENSAJE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="ID_SOLICITUD" />
+          </Key>
+          <Property Name="ID_SOLICITUD" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_VIAJE" Type="int" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="COMENTARIO" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" />
+          <Property Name="FECHA_NACIMIENTO" Type="date" />
+          <Property Name="DIRECCION" Type="varchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Viaje">
+          <Key>
+            <PropertyRef Name="ID_VIAJE" />
+          </Key>
+          <Property Name="ID_VIAJE" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="ORIGEN" Type="varchar" MaxLength="50" />
+          <Property Name="LATITUD_ORIGEN" Type="float" />
+          <Property Name="LONGITUD_ORIGEN" Type="float" />
+          <Property Name="DESTINO" Type="varchar" MaxLength="50" />
+          <Property Name="LATITUD_DESTINO" Type="float" />
+          <Property Name="LONGITUD_DESTINO" Type="float" />
+          <Property Name="COSTO" Type="int" />
+          <Property Name="FECHA" Type="date" />
+          <Property Name="HORA" Type="int" />
+          <Property Name="ESPACIOS" Type="int" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="Mensaje_FK1">
+          <End Role="Solicitud" Type="carpoolingcrModel.Store.Solicitud" Multiplicity="1" />
+          <End Role="Mensaje" Type="carpoolingcrModel.Store.Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="ID_SOLICITUD" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="ID_SOLICITUD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Solicitud_FK1">
+          <End Role="Viaje" Type="carpoolingcrModel.Store.Viaje" Multiplicity="1" />
+          <End Role="Solicitud" Type="carpoolingcrModel.Store.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Viaje">
+              <PropertyRef Name="ID_VIAJE" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="ID_VIAJE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Solicitud_FK2">
+          <End Role="Usuario" Type="carpoolingcrModel.Store.Usuario" Multiplicity="1" />
+          <End Role="Solicitud" Type="carpoolingcrModel.Store.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Viaje_FK1">
+          <End Role="Usuario" Type="carpoolingcrModel.Store.Usuario" Multiplicity="1" />
+          <End Role="Viaje" Type="carpoolingcrModel.Store.Viaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Viaje">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="carpoolingcrModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="carpoolingcrEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Mensaje" EntityType="carpoolingcrModel.Mensaje" />
+          <EntitySet Name="Solicitud" EntityType="carpoolingcrModel.Solicitud" />
+          <EntitySet Name="Usuario" EntityType="carpoolingcrModel.Usuario" />
+          <EntitySet Name="Viaje" EntityType="carpoolingcrModel.Viaje" />
+          <AssociationSet Name="Mensaje_FK1" Association="carpoolingcrModel.Mensaje_FK1">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="Solicitud_FK1" Association="carpoolingcrModel.Solicitud_FK1">
+            <End Role="Viaje" EntitySet="Viaje" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="Solicitud_FK2" Association="carpoolingcrModel.Solicitud_FK2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="Viaje_FK1" Association="carpoolingcrModel.Viaje_FK1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Viaje" EntitySet="Viaje" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Mensaje">
+          <Key>
+            <PropertyRef Name="ID_MENSAJE" />
+          </Key>
+          <Property Name="ID_MENSAJE" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_SOLICITUD" Type="Int32" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="Int32" />
+          <Property Name="MENSAJE1" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Solicitud" Relationship="carpoolingcrModel.Mensaje_FK1" FromRole="Mensaje" ToRole="Solicitud" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="ID_SOLICITUD" />
+          </Key>
+          <Property Name="ID_SOLICITUD" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_VIAJE" Type="Int32" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="COMENTARIO" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Mensaje" Relationship="carpoolingcrModel.Mensaje_FK1" FromRole="Solicitud" ToRole="Mensaje" />
+          <NavigationProperty Name="Viaje" Relationship="carpoolingcrModel.Solicitud_FK1" FromRole="Solicitud" ToRole="Viaje" />
+          <NavigationProperty Name="Usuario" Relationship="carpoolingcrModel.Solicitud_FK2" FromRole="Solicitud" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FECHA_NACIMIENTO" Type="DateTime" Precision="0" />
+          <Property Name="DIRECCION" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Solicitud" Relationship="carpoolingcrModel.Solicitud_FK2" FromRole="Usuario" ToRole="Solicitud" />
+          <NavigationProperty Name="Viaje" Relationship="carpoolingcrModel.Viaje_FK1" FromRole="Usuario" ToRole="Viaje" />
+        </EntityType>
+        <EntityType Name="Viaje">
+          <Key>
+            <PropertyRef Name="ID_VIAJE" />
+          </Key>
+          <Property Name="ID_VIAJE" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="ORIGEN" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LATITUD_ORIGEN" Type="Double" />
+          <Property Name="LONGITUD_ORIGEN" Type="Double" />
+          <Property Name="DESTINO" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LATITUD_DESTINO" Type="Double" />
+          <Property Name="LONGITUD_DESTINO" Type="Double" />
+          <Property Name="COSTO" Type="Int32" />
+          <Property Name="FECHA" Type="DateTime" Precision="0" />
+          <Property Name="HORA" Type="Int32" />
+          <Property Name="ESPACIOS" Type="Int32" />
+          <Property Name="ESTADO" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Solicitud" Relationship="carpoolingcrModel.Solicitud_FK1" FromRole="Viaje" ToRole="Solicitud" />
+          <NavigationProperty Name="Usuario" Relationship="carpoolingcrModel.Viaje_FK1" FromRole="Viaje" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="Mensaje_FK1">
+          <End Role="Solicitud" Type="carpoolingcrModel.Solicitud" Multiplicity="1" />
+          <End Role="Mensaje" Type="carpoolingcrModel.Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="ID_SOLICITUD" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="ID_SOLICITUD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Solicitud_FK1">
+          <End Role="Viaje" Type="carpoolingcrModel.Viaje" Multiplicity="1" />
+          <End Role="Solicitud" Type="carpoolingcrModel.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Viaje">
+              <PropertyRef Name="ID_VIAJE" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="ID_VIAJE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Solicitud_FK2">
+          <End Role="Usuario" Type="carpoolingcrModel.Usuario" Multiplicity="1" />
+          <End Role="Solicitud" Type="carpoolingcrModel.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Viaje_FK1">
+          <End Role="Usuario" Type="carpoolingcrModel.Usuario" Multiplicity="1" />
+          <End Role="Viaje" Type="carpoolingcrModel.Viaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Viaje">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="carpoolingcrModelStoreContainer" CdmEntityContainer="carpoolingcrEntities">
+          <EntitySetMapping Name="Mensaje">
+            <EntityTypeMapping TypeName="carpoolingcrModel.Mensaje">
+              <MappingFragment StoreEntitySet="Mensaje">
+                <ScalarProperty Name="ID_MENSAJE" ColumnName="ID_MENSAJE" />
+                <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="MENSAJE1" ColumnName="MENSAJE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solicitud">
+            <EntityTypeMapping TypeName="carpoolingcrModel.Solicitud">
+              <MappingFragment StoreEntitySet="Solicitud">
+                <ScalarProperty Name="ID_SOLICITUD" ColumnName="ID_SOLICITUD" />
+                <ScalarProperty Name="ID_VIAJE" ColumnName="ID_VIAJE" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="carpoolingcrModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="FECHA_NACIMIENTO" ColumnName="FECHA_NACIMIENTO" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Viaje">
+            <EntityTypeMapping TypeName="carpoolingcrModel.Viaje">
+              <MappingFragment StoreEntitySet="Viaje">
+                <ScalarProperty Name="ID_VIAJE" ColumnName="ID_VIAJE" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ORIGEN" ColumnName="ORIGEN" />
+                <ScalarProperty Name="LATITUD_ORIGEN" ColumnName="LATITUD_ORIGEN" />
+                <ScalarProperty Name="LONGITUD_ORIGEN" ColumnName="LONGITUD_ORIGEN" />
+                <ScalarProperty Name="DESTINO" ColumnName="DESTINO" />
+                <ScalarProperty Name="LATITUD_DESTINO" ColumnName="LATITUD_DESTINO" />
+                <ScalarProperty Name="LONGITUD_DESTINO" ColumnName="LONGITUD_DESTINO" />
+                <ScalarProperty Name="COSTO" ColumnName="COSTO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="HORA" ColumnName="HORA" />
+                <ScalarProperty Name="ESPACIOS" ColumnName="ESPACIOS" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

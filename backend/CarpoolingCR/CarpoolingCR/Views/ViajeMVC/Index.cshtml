@@ -1,0 +1,105 @@
+﻿@model IEnumerable<CarpoolingCR.Models.Viaje>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_VIAJE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ORIGEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LATITUD_ORIGEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LONGITUD_ORIGEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESTINO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LATITUD_DESTINO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LONGITUD_DESTINO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COSTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HORA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ESPACIOS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ESTADO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_VIAJE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ORIGEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LATITUD_ORIGEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LONGITUD_ORIGEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESTINO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LATITUD_DESTINO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LONGITUD_DESTINO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COSTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HORA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ESPACIOS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ESTADO)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.ID_VIAJE }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_VIAJE }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_VIAJE })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,106 @@
+﻿@model CarpoolingCR.Models.Viaje
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Viaje</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_VIAJE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_VIAJE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Usuario.NOMBRE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Usuario.NOMBRE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ORIGEN)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ORIGEN)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LATITUD_ORIGEN)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LATITUD_ORIGEN)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LONGITUD_ORIGEN)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LONGITUD_ORIGEN)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DESTINO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESTINO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LATITUD_DESTINO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LATITUD_DESTINO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LONGITUD_DESTINO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LONGITUD_DESTINO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.COSTO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.COSTO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FECHA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FECHA)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HORA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HORA)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ESPACIOS)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ESPACIOS)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ESTADO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ESTADO)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID_VIAJE }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

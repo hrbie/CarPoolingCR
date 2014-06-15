@@ -1,0 +1,50 @@
+﻿@model CarpoolingCR.Models.Solicitud
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Solicitud</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_SOLICITUD)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_SOLICITUD)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Viaje.ORIGEN)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Viaje.ORIGEN)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Usuario.NOMBRE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Usuario.NOMBRE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.COMENTARIO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.COMENTARIO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ESTADO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ESTADO)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID_SOLICITUD }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

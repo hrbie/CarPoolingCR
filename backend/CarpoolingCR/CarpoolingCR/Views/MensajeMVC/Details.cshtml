@@ -1,0 +1,43 @@
+﻿@model CarpoolingCR.Models.Mensaje
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Mensaje</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_MENSAJE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_MENSAJE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Solicitud.COMENTARIO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Solicitud.COMENTARIO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_USUARIO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_USUARIO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MENSAJE1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MENSAJE1)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id=Model.ID_MENSAJE }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
