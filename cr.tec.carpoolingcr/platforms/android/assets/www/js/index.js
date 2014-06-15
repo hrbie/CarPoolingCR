@@ -190,21 +190,36 @@ var app = {
 			
 			function callback(results, status) {
  				if (status == google.maps.places.PlacesServiceStatus.OK) {
-					alert('places encontrados');
+					alert('places encontrados '+results.length);
 					
-					lugares += '<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">';
+					var lugares = '<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">';
 				    for (var i = 0; i < results.length; i++) {
+						
+						
 						//cargar los places en el listview
-				      	lugares += '<li><a href="#" onclick = "" class="ui-btn ui-btn-icon-right ui-icon-carat-r">';
-						lugares += 'TEXTO DEL LIST';
+				      	lugares += '<li><a id=i href="#" onclick = "app.click_test(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r">';
+						lugares += 'Lugar '+ results[i].name + 'Lat ' + results[i].geometry.location.lat() + 'Long '+results[i].geometry.location.lng();
 						lugares += '<p class="ui-li-aside"> --Texto de la esquina-- </p></a></li>';
     				}
-  				}			
-			}			
+					lugares += '</ul>';
+					//alert (lugares);
+		
+				//alert(viajes);
+				document.getElementById('placesList').innerHTML = lugares;
+				}			
+			}
+			
+			
+			
+						
 		}
 		
 		
 	},
+	
+	click_test: function(str){
+				alert(str);
+			},
 	buscarOrigen:  function(){
 		//buscar Places que coincidan con la búsqueda y listarlos en un listview
 	},

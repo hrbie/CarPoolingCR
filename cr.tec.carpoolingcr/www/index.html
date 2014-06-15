@@ -139,6 +139,14 @@
         
 		<div data-role="content">
 		<center><h1>Ingresar Viaje Nuevo</h1>
+        
+        <input type="hidden" id="lat_origen"></input type="hidden">
+        <input type="hidden" id="lng_origen"></input type="hidden">
+        
+        <input type="hidden" id="lat_destino"></input type="hidden">
+        <input type="hidden" id="lng_destino"></input type="hidden">
+        
+        
         <table>
         <tr>
         	<td>Origen</td>
@@ -152,11 +160,11 @@
 		</tr>
         <tr>
         	<td>Espacios Disponibles</td>
-	        <td><input type="range" data-mini="true" id="espacios" min="0" max="30" value="0"></td>
+	        <td><input type="range" data-mini="true" id="espacios" min="0" max="6" value="0"></td>
 		</tr>
         <tr>
         	<td>Costo</td>
-	        <td><input type="range" data-mini="true" id="costo" min="0" max="10000" step="500" value="0"></td>
+	        <td><input type="range" data-mini="true" id="costo" min="0" max="5000" step="500" value="0"></td>
 		</tr>
         <tr>
         	<td>Fecha</td>
@@ -176,7 +184,48 @@
 		</div><!-- /footer -->
 		
 	  </div><!-- /page -->
-      <!------------------------------------------------------------------------------------------------->      
+      
+      
+      <!----------------------------------  Info Viaje --------------------------------------------------------------->
+      <div data-role="page" id="infoViaje">
+		
+		<div data-role="header">
+          <a href="#home" data-icon="home" >Inicio</a>
+		  <h1>Informacion del Viaje</h1>
+		</div><!-- /header -->
+        
+		<div data-role="content">
+        
+        <label type="hidden" id="lat_origen"></label type="hidden">
+        <label type="hidden" id="lng_origen"></label type="hidden">
+        
+        <label type="hidden" id="lat_destino"></label type="hidden">
+        <label type="hidden" id="lng_destino"></label type="hidden">
+        <center>      
+            <div id="info_viaje" align="center"> </div>
+            
+            
+            
+            
+        </center>
+        
+        
+        <!--mapa-->
+            <center>
+		        <div id="map-canvas" align="center" style="width:400px; height:400px";></div>
+                
+            </center>
+        
+		</div><!-- /content -->	
+        
+		<div data-role="footer" data-position="fixed">
+			<h1>   </h1>
+		</div><!-- /footer -->
+		
+	  </div><!-- /page -->
+      
+      
+      <!-------------------------------------  Buscar Punto Origen------------------------------------------------------------>      
       <div data-role="page" id="buscarPunto">
 		
 		<div data-role="header">
@@ -210,8 +259,8 @@
 		</div><!-- /footer -->
 		
 	  </div><!-- /page -->
-            
-      <!------------------------------------------------------------------------------------------------->      
+       
+      <!-------------------------------------********** BUSCAR VIAJE *******************------------------------------------------------------------>      
       <div data-role="page" id="buscarViaje">
 		
 		<div data-role="header">
@@ -223,16 +272,22 @@
 			<center>
             <h1>Buscar Viaje</h1>
             
+            <input type="hidden" id="lat_origen_buscar"></input type="hidden">
+            <input type="hidden" id="lng_origen_buscar"></input type="hidden">
+            
+            <input type="hidden" id="lat_destino_buscar"></input type="hidden">
+            <input type="hidden" id="lng_destino_buscar"></input type="hidden">
+            
             <table>
             <tr>
             	<td>Origen</td>
-	        	<td><input type="text" id="origen"></input type="text"></td>
-        		<td><button class="ui-btn ui-icon-location ui-btn-icon-notext ui-corner-all" onClick="app.ubicarOrigen()" >No text</button></td>
+	        	<td><input type="text" id="origen_buscar"></input type="text"></td>
+        		<td><button class="ui-btn ui-icon-location ui-btn-icon-notext ui-corner-all" onClick="app.ubicarOrigen_Buscar()" >No text</button></td>
 			</tr>
         	<tr>
         		<td>Destino</td>
-	        	<td><input type="text" id="destino"></input type="text"></td>
-        		<td><button class="ui-btn ui-icon-location ui-btn-icon-notext ui-corner-all" onClick="app.ubicarDestino()">No text</button></td>
+	        	<td><input type="text" id="destino_buscar"></input type="text"></td>
+        		<td><button class="ui-btn ui-icon-location ui-btn-icon-notext ui-corner-all" onClick="app.ubicarDestino_Buscar()">No text</button></td>
 			</tr>
             </table>
             <button class="ui-btn ui-icon-search ui-btn-icon-right" id="searchtripsBtn" onclick="app.searchTrips()">Buscar</button>
