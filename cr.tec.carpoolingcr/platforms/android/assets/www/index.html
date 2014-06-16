@@ -25,8 +25,8 @@
         
         <!--script de phonegap y de la app-->
 		<script type="text/javascript" src="phonegap.js"></script>
-		<script	src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/api.js"></script>
         
         <!--script de maps y places-->
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDulIMTcFcNsqTYJ1L2OgJeFkNTN22-d70&sensor=false&libraries=places"></script>
@@ -49,7 +49,7 @@
 				<img src = "res/logo.jpg" width="200">
 			</div>
 				Correo: <input type="text" id="user"></input type="text">
-				Contraseña:  <input type="text" id="pass"></input type="text">
+				Contraseña:  <input type="password" id="pass"></input type="text">
 				<button id="login" onclick="app.login()">Iniciar Sesión</button>
 				<br>
 				<center>
@@ -68,7 +68,7 @@
       <!------------------------------------------------------------------------------------------------->    
       <div data-role="page" id="home">
 		<div data-role="header">
-          <a href="#about" data-icon="info">Acerca</a>
+          <a href="#about" data-icon="">Acerca</a>
 		  <h1>CarpoolingCR</h1>
           <a href="#profile" data-icon="gear" data-iconpos="left" onClick="app.cargarPerfil()">Perfil</a>
 		</div><!-- /header -->
@@ -110,6 +110,7 @@
 	  </div><!-- /page -->
       </body>
 
+		
       <!------------------------------------------------------------------------------------------------->    
 	  <div data-role="page" id="register">
 		
@@ -118,8 +119,8 @@
 		</div><!-- /header -->
         
 		<div data-role="content">
-			Correo: <input type="text" id="user"></input type="text">
-			Contraseña:  <input type="text" id="pass"></input type="text">
+			Correo: <input type="text" id="user_register"></input type="text">
+			Contraseña:  <input type="password" id="pass_register"></input type="text">
 			<button id="login" onclick="app.register()">Iniciar Sesión</button>
 		</div><!-- /content -->	
         
@@ -139,6 +140,14 @@
         
 		<div data-role="content">
 		<center><h1>Ingresar Viaje Nuevo</h1>
+        
+        <input type="hidden" id="lat_origen"></input type="hidden">
+        <input type="hidden" id="lng_origen"></input type="hidden">
+        
+        <input type="hidden" id="lat_destino"></input type="hidden">
+        <input type="hidden" id="lng_destino"></input type="hidden">
+        
+        
         <table>
         <tr>
         	<td>Origen</td>
@@ -152,11 +161,11 @@
 		</tr>
         <tr>
         	<td>Espacios Disponibles</td>
-	        <td><input type="range" data-mini="true" id="espacios" min="0" max="30" value="0"></td>
+	        <td><input type="range" data-mini="true" id="espacios" min="0" max="6" value="0"></td>
 		</tr>
         <tr>
         	<td>Costo</td>
-	        <td><input type="range" data-mini="true" id="costo" min="0" max="10000" step="500" value="0"></td>
+	        <td><input type="range" data-mini="true" id="costo" min="0" max="5000" step="500" value="0"></td>
 		</tr>
         <tr>
         	<td>Fecha</td>
@@ -176,7 +185,53 @@
 		</div><!-- /footer -->
 		
 	  </div><!-- /page -->
-      <!------------------------------------------------------------------------------------------------->      
+      
+      
+      <!----------------------------------  Info Viaje --------------------------------------------------------------->
+      <div data-role="page" id="infoViaje">
+		
+		<div data-role="header">
+          <a href="#home" data-icon="home" >Inicio</a>
+		  <h1>Informacion del Viaje</h1>
+		</div><!-- /header -->
+        
+		<div data-role="content">
+        
+        <label type="hidden" id="lat_origen"></label type="hidden">
+        <label type="hidden" id="lng_origen"></label type="hidden">
+        
+        <label type="hidden" id="lat_destino"></label type="hidden">
+        <label type="hidden" id="lng_destino"></label type="hidden">
+        
+        <label type="hidden" id="id_viaje"></label type="hidden">
+        <center>      
+            <div id="info_viaje" align="center"> </div>
+            <!--class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-u ui-btn-icon-top"-->
+           <!--<button id="btnenviar_Solicitud" class="ui-btn ui-icon-search ui-icon-mail ui-btn-icon-top ui-corner-all" onClick="app.enviarSolicitud()" >Enviar Solicitud</button>
+           
+           <button id="btnver_Solicitud" class="ui-btn ui-icon-search ui-icon-mail ui-btn-icon-top ui-corner-all" onClick="app.enviarSolicitud()" >Ver Solicitudes</button>-->
+           <div id="botones_div"> </div>
+            
+            
+        </center>
+        
+        
+        <!--mapa-->
+            <center>
+		        <div id="map-canvas_ver" align="center" style="width:400px; height:400px";></div>
+                
+            </center>
+        
+		</div><!-- /content -->	
+        
+		<div data-role="footer" data-position="fixed">
+			<h1>   </h1>
+		</div><!-- /footer -->
+		
+	  </div><!-- /page -->
+      
+      
+      <!-------------------------------------  Buscar Punto Origen------------------------------------------------------------>      
       <div data-role="page" id="buscarPunto">
 		
 		<div data-role="header">
@@ -210,8 +265,8 @@
 		</div><!-- /footer -->
 		
 	  </div><!-- /page -->
-            
-      <!------------------------------------------------------------------------------------------------->      
+       
+      <!-------------------------------------********** BUSCAR VIAJE *******************------------------------------------------------------------>      
       <div data-role="page" id="buscarViaje">
 		
 		<div data-role="header">
@@ -223,16 +278,22 @@
 			<center>
             <h1>Buscar Viaje</h1>
             
+            <input type="hidden" id="lat_origen_buscar"></input type="hidden">
+            <input type="hidden" id="lng_origen_buscar"></input type="hidden">
+            
+            <input type="hidden" id="lat_destino_buscar"></input type="hidden">
+            <input type="hidden" id="lng_destino_buscar"></input type="hidden">
+            
             <table>
             <tr>
             	<td>Origen</td>
-	        	<td><input type="text" id="origen"></input type="text"></td>
-        		<td><button class="ui-btn ui-icon-location ui-btn-icon-notext ui-corner-all" onClick="app.ubicarOrigen()" >No text</button></td>
+	        	<td><input type="text" id="origen_buscar"></input type="text"></td>
+        		<td><button class="ui-btn ui-icon-location ui-btn-icon-notext ui-corner-all" onClick="app.ubicarOrigen_Buscar()" >No text</button></td>
 			</tr>
         	<tr>
         		<td>Destino</td>
-	        	<td><input type="text" id="destino"></input type="text"></td>
-        		<td><button class="ui-btn ui-icon-location ui-btn-icon-notext ui-corner-all" onClick="app.ubicarDestino()">No text</button></td>
+	        	<td><input type="text" id="destino_buscar"></input type="text"></td>
+        		<td><button class="ui-btn ui-icon-location ui-btn-icon-notext ui-corner-all" onClick="app.ubicarDestino_Buscar()">No text</button></td>
 			</tr>
             </table>
             <button class="ui-btn ui-icon-search ui-btn-icon-right" id="searchtripsBtn" onclick="app.searchTrips()">Buscar</button>
@@ -247,7 +308,7 @@
 		
 	  </div><!-- /page -->
       
-      <!------------------------------------------------------------------------------------------------->      
+      <!--------------------------------------- MIS VIAJES ---------------------------------------------------------->      
       <div data-role="page" id="misViajes">
 		
 		<div data-role="header">
@@ -258,8 +319,15 @@
 		<div data-role="content">
 	        <center>
 			<h1>Mis Viajes</h1>
+            
+            <select name="estado_viaje">
+            <option value="Activo">Activos</option>
+            <option value="Cancelada">Cancelados</option>
+            </select>
             <div id="misViajesDiv" align="center"></div>
             </center>
+            <
+            
 		</div><!-- /content -->	
         
 		<div data-role="footer" data-position="fixed">
@@ -267,6 +335,59 @@
 		</div><!-- /footer -->
 		
 	  </div><!-- /page -->
+      
+      
+      <!--------------------------------------- MENSAJES ---------------------------------------------------------->      
+      <div data-role="page" id="mensajes">
+		
+		<div data-role="header">
+          <a href="#home" data-icon="home" >Inicio</a>
+		  <h1>Mis Viajes</h1>
+		</div><!-- /header -->
+        
+		<div data-role="content">
+	        <center>
+			<h1>Mensajes</h1>
+            
+            <!-- <table><tr><td><input type="text" id="mensaje_nuevo"></input type="text"></td>
+             <td><button class="ui-btn ui-icon-comment ui-btn-icon-right ui-btn-icon-notext" id="searchtripsBtn" onclick="app.searchTrips()">Buscar</button></td></tr></table> -->
+             <div id="nuevo_mensajeDiv" align="center"></div>
+            <div id="mensajesDiv" align="center"></div>
+            </center>
+            
+            
+		</div><!-- /content -->	
+        
+		<div data-role="footer" data-position="fixed">
+			<h1>   </h1>
+		</div><!-- /footer -->
+		
+	  </div><!-- /page -->
+      
+      <!--------------------------------------- SOLICITUDES POR VIAJES ---------------------------------------------------------->      
+      <div data-role="page" id="solicitudesPorViaje">
+		
+		<div data-role="header">
+          <a href="#home" data-icon="home" >Inicio</a>
+		  <h1>Solicitudes</h1>
+		</div><!-- /header -->
+        
+		<div data-role="content">
+	        <center>
+			<h1>Solicitudes por Viaje</h1>
+            
+            <div id="SolicitudesporViajesDiv" align="center"></div>
+            </center>
+            <
+            
+		</div><!-- /content -->	
+        
+		<div data-role="footer" data-position="fixed">
+			<h1>   </h1>
+		</div><!-- /footer -->
+		
+	  </div><!-- /page -->
+      
       
       <!------------------------------------------------------------------------------------------------->      
       <div data-role="page" id="misSolicitudes">

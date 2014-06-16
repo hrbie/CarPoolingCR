@@ -341,7 +341,8 @@ var app = {
 	ejecutarWaze: function(lat,long)
 	{
 		//PENDIENTE
-		window.location.href = 'http://waze.to/?ll='+lat+','+long+'&navigate=yes'
+		//window.location.href = 'http://waze.to/?ll='+lat+','+long+'&navigate=yes';
+		window.open('http://waze.to/?ll='+lat+','+long+'&navigate=yes');
 		},	
 	chat_solicitud: function(id_solicitud)
 	{
