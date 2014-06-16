@@ -58,7 +58,6 @@ var app = {
 		{
 			
 			self.location="#home";
-			alert("id = "+  id_usuario);
 		}
 		else
 		{
@@ -161,7 +160,6 @@ var app = {
 			var lngX = (lng_origen+lng_destino)/2;
 		
 			myLatlng_Promedio = new google.maps.LatLng( latX , lngX );
-			alert("promedio = "+myLatlng_Promedio + " origen= "+myLatlng_Origen+ " destino= "+myLatlng_Destino);
 			
 			mapOptions = {
 				center: myLatlng_Promedio, 
@@ -213,7 +211,6 @@ var app = {
 		
 		if(estado==1)
 		{
-			alert("estado: "+1);
 			var boton = "";
 			boton += '<button id="btnenviar_Solicitud" class="ui-btn ui-icon-search ui-icon-mail ui-btn-icon-top ui-corner-all" onClick="app.enviarSolicitud()" >Enviar Solicitud</button>';
 		
@@ -221,7 +218,6 @@ var app = {
 		}
 		else if(estado==2)
 		{
-			alert("estado: "+2);
 			var boton="";
 			boton += '<button id="btnver_Solicitud" class="ui-btn ui-icon-search ui-icon-mail ui-btn-icon-top ui-corner-all" onClick="app.verSolicitud('+ id_viaje+ ')" >Ver Solicitudes</button>';
 			
@@ -231,7 +227,6 @@ var app = {
 		
 		
 		
-		alert("id_viaje desde click: "+id_viaje);
 		
 		
 		document.getElementById("id_viaje").value = id_viaje;
@@ -249,7 +244,6 @@ var app = {
 			app.verViaje(str);
 		});
 		
-		//alert(viajes);
 		//document.getElementById('viajesDisponibles').innerHTML = viajes;
 	},
 	
@@ -302,13 +296,10 @@ var app = {
 				solicitudes +='<center><table><tr><td><button class="ui-btn ui-icon-check ui-btn-icon-notext ui-corner-all" onClick="app.aceptar_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td>';
 				solicitudes +='<td><button class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" onClick="app.rechazar_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td>';
 				solicitudes +='<td><button class="ui-btn ui-icon-mail ui-btn-icon-notext ui-corner-all" onClick="app.chat_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td></tr></table></center>';
-				
-				
-				
+			
 			}
 			else
 			{
-				alert("igual a Aceptada:" )
 			solicitudes +='<center><table><tr><td><button class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" onClick="app.rechazar_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td>';
 			solicitudes +='<td><button class="ui-btn ui-icon-mail ui-btn-icon-notext ui-corner-all" onClick="app.chat_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td></tr></table></center>';
 				}
@@ -350,12 +341,46 @@ var app = {
 	ejecutarWaze: function(lat,long)
 	{
 		//PENDIENTE
-		window.location = 'http://waze.to/?ll='+lat+','+long+'&navigate=yes'
+		window.location.href = 'http://waze.to/?ll='+lat+','+long+'&navigate=yes'
 		},	
 	chat_solicitud: function(id_solicitud)
 	{
+		self.location = "#mensajes"
+		var results = apiAccess.getMensajesBySolicitud(id_solicitud);
+		var txt_mensaje="";
+		var lst_mensaje="";
+		/*
+		ID_MENSAJE
+		ID_SOLICITUD
+		ID_USUARIO
+		MENSAJE
+		*/
+		
+		txt_mensaje = '<table><tr><td><input type="text" id="mensaje_nuevo"></input type="text"></td><td><button class="ui-btn ui-icon-comment ui-btn-icon-right ui-btn-icon-notext" id="nuevo_mensajeBtn" onclick="app.nuevo_mensaje('+id_solicitud+')">Buscar</button></td></tr></table>';
+		document.getElementById('nuevo_mensajeDiv').innerHTML = txt_mensaje;
+		
+		//en realidad se va iterando desde el resultado de la consulta al backend
+		lst_mensaje += '<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">';
+		for (var i = 0; i < results.length; i++) { 
+		
+			var usuario = apiAccess.getUsuarioById(results[i].ID_USUARIO);
+		
+			lst_mensaje += '<li><a href="#" onclick = "" class="ui-btn ui-btn-icon-right " ><h4>Envia:'+ usuario.NOMBRE 
+			+'</h2>Mensaje: '+results[i].MENSAJE1;
+		}
+		lst_mensaje += '</ul>';
+		
+		document.getElementById('mensajesDiv').innerHTML = lst_mensaje;
 		
 		},
+		
+		nuevo_mensaje: function(id_solicitud)
+		{
+			apiAccess.enviarMensaje('0',id_solicitud,id_usuario,document.getElementById('mensaje_nuevo').value);
+			app.chat_solicitud(id_solicitud);
+			},
+			
+			
 	misViajes: function(){
 		var viajes="";
 		
@@ -378,19 +403,10 @@ var app = {
 		}
 		viajes += '</ul>';
 		
-		//alert(viajes);
 		document.getElementById('misViajesDiv').innerHTML = viajes;
 	},
 	misSolicitudes: function(){
 		var solicitudes="";
-		var origen = "Cartago";
-		var destino = "San Jose";
-		var costo = 500;
-		var plazas = 4;
-		var fecha = '15/06/14';
-		var hora = '8:00 A.M.';
-		var user = 'Herberth Torres';
-		var comment = 'Vamos juntos!';
 		var results = apiAccess.getSolicitudesByUsuario(id_usuario);
 		
 		/*
@@ -411,13 +427,12 @@ var app = {
 			solicitudes += 'Costo: '+viaje.COSTO+' Total de Plazas: '+viaje.ESPACIOS;
 			solicitudes += '<h5>Comentario: '+results[i].COMENTARIO+'</h5>';
 			solicitudes += '<strong>Estado: '+'Pendiente'+'</strong>';
-			solicitudes +='<center><table><tr><td><button class="ui-btn ui-icon-comment ui-btn-icon-notext ui-corner-all" onClick="">No text</button></td>';
+			solicitudes +='<center><table><tr><td><button class="ui-btn ui-icon-comment ui-btn-icon-notext ui-corner-all" onClick="app.chat_solicitud('+results[i].ID_SOLICITUD+')">No text</button></td>';
 			solicitudes +='<td><button class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" onClick="app.cancelar_solicitud('+results[i].ID_SOLICITUD+')">No text</button></td></tr></table></center>';
 			
 		}
 		solicitudes += '</ul>';
 		
-		//alert(viajes);
 		document.getElementById('misSolicitudesDiv').innerHTML = solicitudes;
 		
 		
@@ -438,7 +453,7 @@ var app = {
 	},
 	
 	tripSubmit: function(){
-		alert("id = "+ id_usuario);
+		
 		var origen = document.getElementById('origen').value
 		var origen_lat = document.getElementById('lat_origen').value;
 		var origen_ltn = document.getElementById('lng_origen').value;
@@ -455,7 +470,6 @@ var app = {
 		
 		hora_militar = hora_militar[0]*100+hora_militar[1]*1
 		
-		alert("hora militar: "+hora_militar);
 		apiAccess.crearViaje('0',id_usuario,origen,origen_lat,origen_ltn,destino,destino_lat,destino_lng,costo,fecha,hora_militar,espacios); 
 		
 		},
@@ -499,7 +513,7 @@ var app = {
 			lat =  position.coords.latitude;
 		  	lng = position.coords.longitude;
 			myLatlng = new google.maps.LatLng(lat,lng);
-			//alert('sucess');
+			
 			montarMapa();
       	}
 		function onError(error) {
@@ -533,7 +547,7 @@ var app = {
 			function callback(results, status) {
 				
  				if (status == google.maps.places.PlacesServiceStatus.OK) {
-					alert('places encontrados '+results.length);
+					
 					
 					var lugares = '<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">';
 				    for (var i = 0; i < results.length; i++) {
@@ -546,9 +560,8 @@ var app = {
 						lugares += '<p class="ui-li-aside"> --Texto de la esquina-- </p></a></li>';
     				}
 					lugares += '</ul>';
-					//alert (lugares);
+					
 		
-				//alert(viajes);
 				document.getElementById('placesList').innerHTML = lugares;
 				}			
 			}			
@@ -565,14 +578,11 @@ var app = {
 				var origen = str_split[0];
 				var lat_origen = str_split[1];
 				var lng_origen = str_split[2]
-				alert(origen);
-				alert(lat_origen);
-				alert(lng_origen);
+				
 				document.getElementById('origen').value = origen;
 				document.getElementById('lat_origen').value = lat_origen;
 				document.getElementById('lng_origen').value = lng_origen;
-				alert(document.getElementById('lat_origen').value);
-				alert(document.getElementById('lng_origen').value)
+				
 				self.location.href="#ofrecerViaje";
 		}
 		
@@ -583,14 +593,11 @@ var app = {
 				var origen = str_split[0];
 				var lat_origen = str_split[1];
 				var lng_origen = str_split[2]
-				alert(origen);
-				alert(lat_origen);
-				alert(lng_origen);
+				
 				document.getElementById('destino').value = origen;
 				document.getElementById('lat_destino').value = lat_origen;
 				document.getElementById('lng_destino').value = lng_origen;
-				//alert('destino '+document.getElementById('lat_destino').value);
-				//alert(document.getElementById('lng_destino').value)
+				
 				self.location.href="#ofrecerViaje";
 		}
 		
@@ -601,14 +608,11 @@ var app = {
 				var origen = str_split[0];
 				var lat_origen = str_split[1];
 				var lng_origen = str_split[2]
-				alert(origen);
-				alert(lat_origen);
-				alert(lng_origen);
+				
 				document.getElementById('origen_buscar').value = origen;
 				document.getElementById('lat_origen_buscar').value = lat_origen;
 				document.getElementById('lng_origen_buscar').value = lng_origen;
-				alert('buscar origen '+document.getElementById('lat_origen').value);
-				alert(document.getElementById('lng_origen').value)
+				
 				self.location.href="#buscarViaje";
 		}
 		
@@ -619,14 +623,11 @@ var app = {
 				var origen = str_split[0];
 				var lat_origen = str_split[1];
 				var lng_origen = str_split[2]
-				alert(origen);
-				alert(lat_origen);
-				alert(lng_origen);
+				
 				document.getElementById('destino_buscar').value = origen;
 				document.getElementById('lat_destino_buscar').value = lat_origen;
 				document.getElementById('lng_destino_buscar').value = lng_origen;
-				alert('buscar destino '+document.getElementById('lat_origen').value);
-				alert(document.getElementById('lng_origen').value)
+				
 				self.location.href="#buscarViaje";
 		}
 				
@@ -690,7 +691,7 @@ var app = {
 		}
 		else if(txt_origen!="" & txt_destino!="")
 		{
-			alert("ambos");
+			
 			var total_viajes_ambos = apiAccess.getViajesbyOrigenyDestino(txt_origen,txt_destino);
 			
 			app.cargarViajes_aux(total_viajes_ambos);	
@@ -731,7 +732,6 @@ var app = {
 		
 		function callback(results, status) {
   			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				alert(results.length)
 				
 				
     		var lugares = '<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">';
@@ -745,9 +745,7 @@ var app = {
 						lugares += '<p class="ui-li-aside"> --Texto de la esquina-- </p></a></li>';
     				}
 					lugares += '</ul>';
-					//alert (lugares);
-		
-				//alert(viajes);
+					
 				document.getElementById('placesList').innerHTML = lugares;
   			}
 		}
