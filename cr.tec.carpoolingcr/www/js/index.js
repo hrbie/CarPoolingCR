@@ -225,7 +225,7 @@ var app = {
 			var boton="";
 			boton += '<button id="btnver_Solicitud" class="ui-btn ui-icon-search ui-icon-mail ui-btn-icon-top ui-corner-all" onClick="app.verSolicitud('+ id_viaje+ ')" >Ver Solicitudes</button>';
 			
-			boton += '<button id="btnver_Solicitud" class="ui-btn ui-icon- ui-icon-navigation ui-btn-icon-top ui-corner-allsearch" onClick="app.ejecutarWaze()" >Ir con Waze</button>';
+			boton += '<button id="btnver_Solicitud" class="ui-btn ui-icon- ui-icon-navigation ui-btn-icon-top ui-corner-allsearch" onClick="app.ejecutarWaze('+get_info[5]+','+get_info[6]+')" >Ir con Waze</button>';
 			document.getElementById('botones_div').innerHTML = boton;
 		}
 		
@@ -256,7 +256,7 @@ var app = {
 	verSolicitud: function(id_viaje)
 	{
 		var solicitudes = apiAccess.getSolicitudesByViaje(id_viaje);
-		alert(solicitudes[0].COMENTARIO);
+		
 		
 		self.location = "#solicitudesPorViaje"
 		
@@ -286,23 +286,79 @@ var app = {
 		solicitudes += '<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">';
 		for (var i = 0; i < total_viajes.length; i++) { 
 			
-			var info = '\''+total_viajes[i].ID_SOLICITUD+';'+total_viajes[i].ID_VIAJE +';'+total_viajes[i].ID_USUARIO+';'+total_viajes[i].COMENTARIO+';'+total_viajes[i].ESTADO+'\'';
 			
-			solicitudes += '<li><a href="#" onclick = "" class="ui-btn ui-btn-icon-right ui-icon-carat-r"><h2>'+ total_viajes[i].COMENTARIO + ' > '+ total_viajes[i].ESTADO;
+			
+			var usuario = apiAccess.getUsuarioById(total_viajes[i].ID_USUARIO);
+			
+			//var info = '\''+total_viajes[i].ID_SOLICITUD+';'+total_viajes[i].ID_VIAJE +';'+total_viajes[i].ID_USUARIO+';'+total_viajes[i].COMENTARIO+';'+total_viajes[i].ESTADO+'\'';
+			
+			
+			solicitudes += '<li><a href="#" onclick = "" class="ui-btn ui-btn-icon-right ui-icon-carat-r"><h1>Solicitante: '+usuario.NOMBRE;
+			solicitudes += '<h2>Comentario: '+ total_viajes[i].COMENTARIO;
+			solicitudes+='<h3>Estado: '+  total_viajes[i].ESTADO;
+			if(total_viajes[i].ESTADO != 'Aceptada')
+			{
+				
+				solicitudes +='<center><table><tr><td><button class="ui-btn ui-icon-check ui-btn-icon-notext ui-corner-all" onClick="app.aceptar_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td>';
+				solicitudes +='<td><button class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" onClick="app.rechazar_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td>';
+				solicitudes +='<td><button class="ui-btn ui-icon-mail ui-btn-icon-notext ui-corner-all" onClick="app.chat_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td></tr></table></center>';
+				
+				
+				
+			}
+			else
+			{
+				alert("igual a Aceptada:" )
+			solicitudes +='<center><table><tr><td><button class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" onClick="app.rechazar_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td>';
+			solicitudes +='<td><button class="ui-btn ui-icon-mail ui-btn-icon-notext ui-corner-all" onClick="app.chat_solicitud('+total_viajes[i].ID_SOLICITUD+')">No text</button></td></tr></table></center>';
+				}
 		}
 		solicitudes += '</ul>';
 		
 		document.getElementById('SolicitudesporViajesDiv').innerHTML = solicitudes;
 	},
-	
+	aceptar_solicitud: function(id_solicitud)
+	{
+		apiAccess.aceptarSolicitud(id_solicitud);
+		alert("Solicitud Aceptada");
+		self.location = "#infoViaje";
+		},
+		
+	rechazar_solicitud: function(id_solicitud)
+	{
+		var confirmacion="";
+		confirmacion = confirm('Esta seguro que desea rechazar este viaje')
+		if(confirmacion)
+		{
+			apiAccess.rechazarSolicitud(id_solicitud);
+			alert("Solicitud Rechazada");
+		self.location = "#infoViaje";
+		}
+	},
+	cancelar_solicitud: function(id_solicitud)
+	{
+		var confirmacion="";
+		confirmacion = confirm('Esta seguro que desea cancelar este viaje')
+		if(confirmacion)
+		{
+			apiAccess.cancelarSolicitud(id_solicitud);
+			alert("Solicitud Cancelada");
+			self.location = "#home";
+		}
+	},	
+		
+	ejecutarWaze: function(lat,long)
+	{
+		//PENDIENTE
+		window.location = 'http://waze.to/?ll='+lat+','+long+'&navigate=yes'
+		},	
+	chat_solicitud: function(id_solicitud)
+	{
+		
+		},
 	misViajes: function(){
 		var viajes="";
-		var origen = "Cartago";
-		var destino = "San Jose";
-		var costo = 500;
-		var plazas = 4;
-		var fecha = '15/06/14';
-		var hora = '8:00 A.M.';
+		
 		var results = "";
 		
 		
@@ -335,18 +391,29 @@ var app = {
 		var hora = '8:00 A.M.';
 		var user = 'Herberth Torres';
 		var comment = 'Vamos juntos!';
-		var results = [1,2,3];
+		var results = apiAccess.getSolicitudesByUsuario(id_usuario);
+		
+		/*
+		ID_SOLICITUD
+		ID_VIJAE
+		ID_USUARIO
+		COMENTARIO
+		ESTADO
+		*/
+		
 		//en realidad se va iterando desde el resultado de la consulta al backend
 		solicitudes += '<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">';
 		for (var i = 0; i < results.length; i++) { 
-			solicitudes += '<li><a href="#" onclick = "" class="ui-btn ui-btn-icon-right ui-icon-carat-r"><h2>'+ origen + ' > '+ destino +'</h2>';
-			solicitudes += '<h4>Usuario: '+user+'</h4>';
-			solicitudes += 'Costo: '+costo+' Total de Plazas: '+plazas;
-			solicitudes += '<h3>Comentario: '+comment+'</h3>';
+			var viaje = apiAccess.getViajeById(results[i].ID_VIAJE);
+			var usuario = apiAccess.getUsuarioById(results[i].ID_USUARIO);
+			solicitudes += '<li><a href="#" onclick = "" class="ui-btn "><h2>'+ viaje.ORIGEN + ' > '+ viaje.DESTINO +'</h2>';
+			solicitudes += '<h4>Usuario: '+usuario.NOMBRE+'</h4>';
+			solicitudes += 'Costo: '+viaje.COSTO+' Total de Plazas: '+viaje.ESPACIOS;
+			solicitudes += '<h5>Comentario: '+results[i].COMENTARIO+'</h5>';
 			solicitudes += '<strong>Estado: '+'Pendiente'+'</strong>';
-			solicitudes +='<center><td><button class="ui-btn ui-icon-comment ui-btn-icon-notext ui-corner-all" onClick="">No text</button></td>';
-			solicitudes +='<td><button class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" onClick="">No text</button></td></center>';
-			solicitudes += '<p class="ui-li-aside"> '+fecha+' '+hora+'</p></a></li>';
+			solicitudes +='<center><table><tr><td><button class="ui-btn ui-icon-comment ui-btn-icon-notext ui-corner-all" onClick="">No text</button></td>';
+			solicitudes +='<td><button class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" onClick="app.cancelar_solicitud('+results[i].ID_SOLICITUD+')">No text</button></td></tr></table></center>';
+			
 		}
 		solicitudes += '</ul>';
 		
