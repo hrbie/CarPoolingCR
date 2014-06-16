@@ -25,8 +25,8 @@
         
         <!--script de phonegap y de la app-->
 		<script type="text/javascript" src="phonegap.js"></script>
-		<script	src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/api.js"></script>
         
         <!--script de maps y places-->
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDulIMTcFcNsqTYJ1L2OgJeFkNTN22-d70&sensor=false&libraries=places"></script>
@@ -49,7 +49,7 @@
 				<img src = "res/logo.jpg" width="200">
 			</div>
 				Correo: <input type="text" id="user"></input type="text">
-				Contraseña:  <input type="text" id="pass"></input type="text">
+				Contraseña:  <input type="password" id="pass"></input type="text">
 				<button id="login" onclick="app.login()">Iniciar Sesión</button>
 				<br>
 				<center>
@@ -68,7 +68,7 @@
       <!------------------------------------------------------------------------------------------------->    
       <div data-role="page" id="home">
 		<div data-role="header">
-          <a href="#about" data-icon="info">Acerca</a>
+          <a href="#about" data-icon="">Acerca</a>
 		  <h1>CarpoolingCR</h1>
           <a href="#profile" data-icon="gear" data-iconpos="left" onClick="app.cargarPerfil()">Perfil</a>
 		</div><!-- /header -->
@@ -118,8 +118,8 @@
 		</div><!-- /header -->
         
 		<div data-role="content">
-			Correo: <input type="text" id="user"></input type="text">
-			Contraseña:  <input type="text" id="pass"></input type="text">
+			Correo: <input type="text" id="user_register"></input type="text">
+			Contraseña:  <input type="password" id="pass_register"></input type="text">
 			<button id="login" onclick="app.register()">Iniciar Sesión</button>
 		</div><!-- /content -->	
         
@@ -201,10 +201,15 @@
         
         <label type="hidden" id="lat_destino"></label type="hidden">
         <label type="hidden" id="lng_destino"></label type="hidden">
+        
+        <label type="hidden" id="id_viaje"></label type="hidden">
         <center>      
             <div id="info_viaje" align="center"> </div>
-            
-            
+            <!--class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-u ui-btn-icon-top"-->
+           <!--<button id="btnenviar_Solicitud" class="ui-btn ui-icon-search ui-icon-mail ui-btn-icon-top ui-corner-all" onClick="app.enviarSolicitud()" >Enviar Solicitud</button>
+           
+           <button id="btnver_Solicitud" class="ui-btn ui-icon-search ui-icon-mail ui-btn-icon-top ui-corner-all" onClick="app.enviarSolicitud()" >Ver Solicitudes</button>-->
+           <div id="botones_div"> </div>
             
             
         </center>
@@ -212,7 +217,7 @@
         
         <!--mapa-->
             <center>
-		        <div id="map-canvas" align="center" style="width:400px; height:400px";></div>
+		        <div id="map-canvas_ver" align="center" style="width:400px; height:400px";></div>
                 
             </center>
         
@@ -302,7 +307,7 @@
 		
 	  </div><!-- /page -->
       
-      <!------------------------------------------------------------------------------------------------->      
+      <!--------------------------------------- MIS VIAJES ---------------------------------------------------------->      
       <div data-role="page" id="misViajes">
 		
 		<div data-role="header">
@@ -313,8 +318,15 @@
 		<div data-role="content">
 	        <center>
 			<h1>Mis Viajes</h1>
+            
+            <select name="estado_viaje">
+            <option value="Activo">Activos</option>
+            <option value="Cancelada">Cancelados</option>
+            </select>
             <div id="misViajesDiv" align="center"></div>
             </center>
+            <
+            
 		</div><!-- /content -->	
         
 		<div data-role="footer" data-position="fixed">
@@ -322,6 +334,31 @@
 		</div><!-- /footer -->
 		
 	  </div><!-- /page -->
+      
+      <!--------------------------------------- SOLICITUDES POR VIAJES ---------------------------------------------------------->      
+      <div data-role="page" id="solicitudesPorViaje">
+		
+		<div data-role="header">
+          <a href="#home" data-icon="home" >Inicio</a>
+		  <h1>Solicitudes</h1>
+		</div><!-- /header -->
+        
+		<div data-role="content">
+	        <center>
+			<h1>Solicitudes por Viaje</h1>
+            
+            <div id="SolicitudesporViajesDiv" align="center"></div>
+            </center>
+            <
+            
+		</div><!-- /content -->	
+        
+		<div data-role="footer" data-position="fixed">
+			<h1>   </h1>
+		</div><!-- /footer -->
+		
+	  </div><!-- /page -->
+      
       
       <!------------------------------------------------------------------------------------------------->      
       <div data-role="page" id="misSolicitudes">
